@@ -42,6 +42,7 @@ tareas/t1/
 *.zip
 *.tar
 *.gz
+*.sav
 # *.pickle
 
 # Archivos de notebooks temporales
