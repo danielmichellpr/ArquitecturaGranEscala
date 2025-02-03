@@ -82,3 +82,5 @@ tareas/t2/data/train.csv
 tareas/t2/data/raw/sales_train.csv
 tareas/t2/data/train_test/X_train.csv
 tareas/t2/data/train.csv
+tareas/t2/src/main_all.ipynb
+*.DS_Store
