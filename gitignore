@@ -33,7 +33,7 @@ tareas/t1/
 # dataset/
 # output/
 # results/
-# *.csv
+*.csv
 *.xlsx
 # *.parquet
 *.h5
