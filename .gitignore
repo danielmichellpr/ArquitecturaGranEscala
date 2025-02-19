@@ -45,9 +45,9 @@ tareas/t1/
 *.sav
 # *.pickle
 # Ignorar archivos CSV grandes
-tareas/t2/data/
-tareas/t2/data/train_test/X_train.csv
-tareas/t2/data/train.csv
+data/
+data/train_test/X_train.csv
+data/train.csv
 
 # Archivos de notebooks temporales
 .ipynb_checkpoints/
@@ -76,11 +76,11 @@ models/
 *.pkl
 *.joblib
 *.onnx
-tareas/t2/data/raw/sales_train.csv
-tareas/t2/data/train_test/X_train.csv
-tareas/t2/data/train.csv
-tareas/t2/data/raw/sales_train.csv
-tareas/t2/data/train_test/X_train.csv
-tareas/t2/data/train.csv
-tareas/t2/src/main_all.ipynb
+data/raw/sales_train.csv
+data/train_test/X_train.csv
+data/train.csv
+data/raw/sales_train.csv
+data/train_test/X_train.csv
+data/train.csv
+src/main_all.ipynb
 *.DS_Store
