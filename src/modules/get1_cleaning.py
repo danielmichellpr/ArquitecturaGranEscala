@@ -1,8 +1,22 @@
-import pandas as pd
-import logging
+"""
+Módulo de limpieza de datos de ventas.
 
-# Importar logger en lugar de configurarlo aquí
-logger = logging.getLogger(__name__)
+Este módulo define la clase `SalesCleaner`, que proporciona métodos para transformar y limpiar 
+un DataFrame de ventas. Las transformaciones incluyen la conversión de fechas, la generación 
+de nuevas variables temporales y la validación de datos.
+
+Clases:
+    - SalesCleaner: Clase para la limpieza y transformación de datos de ventas.
+
+Excepciones:
+    - ValueError: Se lanza cuando el DataFrame de entrada es inválido o vacío.
+    - KeyError: Se lanza cuando las columnas esperadas no están presentes en el DataFrame.
+"""
+import sys
+import os
+import pandas as pd
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+from logs.logger_config import logger # pylint: disable=C0413
 
 class SalesCleaner:
     """
@@ -25,7 +39,7 @@ class SalesCleaner:
         if df.empty:
             logger.warning("El DataFrame está vacío.")
             raise ValueError("El DataFrame está vacío.")
-        
+
         self.df = df.copy()  # Copia para no modificar el original
         logger.info("Inicio del proceso de limpieza de datos.")
 
@@ -35,18 +49,24 @@ class SalesCleaner:
         
         Excepciones:
         KeyError: Si la columna 'date' no está en el DataFrame.
-        ValueError: Si la conversión de fecha falla debido a un formato incorrecto.
+        ValueError: Si la columna 'date' contiene solo valores nulos o no puede convertirse.
         """
         if "date" not in self.df.columns:
             logger.error("La columna 'date' no existe en el DataFrame.")
             raise KeyError("La columna 'date' no existe en el DataFrame.")
-        
-        if not pd.api.types.is_datetime64_any_dtype(self.df["date"]):
-            try:
-                self.df["date"] = pd.to_datetime(self.df["date"], format="%d.%m.%Y")
-            except ValueError:
-                logger.error("Formato de fecha incorrecto en la columna 'date'. Se esperaba '%d.%m.%Y'.")
-                raise ValueError("Formato de fecha incorrecto en la columna 'date'. Se esperaba '%d.%m.%Y'.")
+
+        if self.df["date"].isnull().all():
+            logger.warning("'date' contiene solo valores nulos, no se puede convertir.")
+            raise ValueError("La columna 'date' contiene solo valores nulos y no se puede convertir.")
+
+        try:
+            self.df["date"] = pd.to_datetime(self.df["date"], format="%d.%m.%Y", errors="coerce")
+            if self.df["date"].isnull().any():
+                logger.warning("Algunos valores en 'date' no pudieron convertirse y fueron establecidos como NaT.")
+        except Exception as exc:
+            logger.error("Error en la conversión de 'date'.")
+            raise ValueError("Error en la conversión de 'date'.") from exc
+ 
         return self
 
     def add_month_year(self):
@@ -60,11 +80,12 @@ class SalesCleaner:
         if "date" not in self.df.columns:
             logger.error("La columna 'date' no existe en el DataFrame.")
             raise KeyError("La columna 'date' no existe en el DataFrame.")
-        
+
         if self.df["date"].isnull().all():
-            logger.warning("La columna 'date' contiene solo valores nulos, no se puede generar 'month_year'.")
-            raise ValueError("La columna 'date' contiene solo valores nulos.")  
+            logger.warning("'date' contiene solo valores nulos, no se puede generar 'month_year'.")
+            raise ValueError("La columna 'date' contiene solo valores nulos.")
         self.df["month_year"] = self.df["date"].dt.strftime("%Y-%m")
+        return self
 
     def execute_transformations(self):
         """
@@ -94,7 +115,8 @@ class SalesCleaner:
 
     # def add_month_year(self):
     #     """
-    #     Crea una nueva columna 'month_year' en formato 'YYYY-MM' para facilitar análisis temporales.
+    #     Crea una nueva columna 'month_year' en formato 'YYYY-MM'
+    #     para facilitar análisis temporales.
     #     """
     #     self.df["month_year"] = self.df["date"].dt.strftime("%Y-%m")
     #     # self.df["month_year"] = self.df["date"].dt.to_period("M").dt.to_timestamp()

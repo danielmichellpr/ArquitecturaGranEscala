@@ -1,6 +1,19 @@
-# data_utils.py
+"""
+Módulo para la manipulación y análisis de datos en DataFrames de Pandas.
+
+Este módulo proporciona la clase `DataProcessor`, que incluye métodos para:
+- Evaluar la completitud de un DataFrame.
+- Traducir valores de una columna a otro idioma utilizando Google Translator.
+
+Clases:
+    - DataProcessor: Contiene métodos estáticos para el procesamiento de datos.
+
+Excepciones:
+    - ValueError: Se lanza cuando los argumentos proporcionados no cumplen con los
+      requisitos esperados.
+"""
 import pandas as pd
-from deep_translator import GoogleTranslator
+from deep_translator import GoogleTranslator, exceptions
 
 class DataProcessor:
     """
@@ -10,7 +23,8 @@ class DataProcessor:
     @staticmethod
     def completitud(df: pd.DataFrame) -> pd.DataFrame:
         """
-        Calcula la cantidad de valores nulos y el porcentaje de completitud para cada variable en un DataFrame.
+        Calcula la cantidad de valores nulos y el porcentaje de completitud 
+        para cada variable en un DataFrame.
         
         Parámetros:
         df (pd.DataFrame): DataFrame a analizar.
@@ -21,22 +35,22 @@ class DataProcessor:
         # Verificar que el input sea un DataFrame válido
         if not isinstance(df, pd.DataFrame):
             raise ValueError("El argumento df debe ser un pandas DataFrame.")
-        
+
         if df.empty:
             raise ValueError("El DataFrame está vacío.")
-        
+
         # Calcular valores nulos y porcentaje de completitud
         num_nulos = df.isnull().sum()
         total_filas = len(df)
         completitud = (1 - num_nulos / total_filas) * 100  # Porcentaje de datos no nulos
-        
+
         # Crear DataFrame de salida
         df_completitud = pd.DataFrame({
             "variable": df.columns,
             "num_nulos": num_nulos.values,
             "completitud": completitud.values
         }).sort_values(by="num_nulos", ascending=False)
-        
+
         return df_completitud
 
     @staticmethod
@@ -56,15 +70,15 @@ class DataProcessor:
         # Verificar que el input sea un DataFrame válido
         if not isinstance(df, pd.DataFrame):
             raise ValueError("El argumento df debe ser un pandas DataFrame.")
-        
+
         if column_name not in df.columns:
             raise ValueError(f"La columna '{column_name}' no existe en el DataFrame.")
-        
+
         if df[column_name].isnull().all():
             raise ValueError(f"La columna '{column_name}' no tiene valores válidos para traducir.")
-        
+
         translator = GoogleTranslator(source=source_lang, target=target_lang)
-        
+
         def safe_translate(text):
             """ Traduce un texto, pero maneja errores específicos si el traductor falla. """
             if isinstance(text, str) and text.strip():  # Evita traducir valores vacíos o nulos
@@ -74,16 +88,16 @@ class DataProcessor:
                     return text  # Entrada inválida para la API
                 except exceptions.TooManyRequests:
                     return text  # Límite de solicitudes alcanzado
-                except exceptions.ElementNotFoundInAPIResponse:
-                    return text  # Elemento no encontrado en respuesta API
+                # except exceptions.ElementNotFoundInAPIResponse:
+                #    return text  # Elemento no encontrado en respuesta API
                 except exceptions.RequestError:
                     return text  # Error en la solicitud
             return text
-        
+
         # Crear nueva columna con la traducción
         translated_col = column_name + "_" + target_lang
         df[translated_col] = df[column_name].astype(str).apply(safe_translate)
-        
+
         return df
 
     # @staticmethod
