@@ -1,5 +1,6 @@
 # Archivos de Python compilados y temporales
 __pycache__/
+*__pycache__/
 # *.py[cod]
 # *.so
 # *.dll
@@ -11,8 +12,8 @@ venv/
 env/
 
 # Archivos de logs y caché
-logs/
-*.log
+# logs/
+# *.log
 *.out
 *.err
 
@@ -43,7 +44,7 @@ tareas/t1/
 *.tar
 *.gz
 *.sav
-# *.pickle
+*.pickle
 # Ignorar archivos CSV grandes
 data/
 data/train_test/X_train.csv
@@ -69,7 +70,9 @@ spark-warehouse/
 *.avro
 
 # Modelos entrenados y pesados (si usas ML)
-models/
+#models/
+models/random_forest_model.pkl
+models/xgboost_model.pkl
 *.h5
 *.pb
 *.pt
@@ -84,3 +87,4 @@ data/train_test/X_train.csv
 data/train.csv
 notebooks/main_all.ipynb
 *.DS_Store
+.DS_Store
