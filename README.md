@@ -112,15 +112,15 @@ flags:
 
 ## Cómo Ejecutar el Proyecto
 
-`py
+```python
 python main.py
-`
+```
 
 Esto generará:
 
 ✅ `data_predictions.csv`→ Predicciones para todo el dataset procesado.
 
-✅ ```models/xgboost_model.pkl` → Modelo entrenado guardado.
+✅ `models/xgboost_model.pkl` → Modelo entrenado guardado.
 
 ## Ejecución de Pruebas Unitarias
 
