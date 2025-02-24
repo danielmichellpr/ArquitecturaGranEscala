@@ -7,6 +7,7 @@ from logs.logger_config import logger
 
 if __name__ == "__main__":
     logger.info("Iniciando limpieza de datos...")
-    pipeline = SalesPredictionPipeline(force_cleaning=True, force_engineering=False, force_training=False)
+    pipeline = SalesPredictionPipeline(force_cleaning=True, 
+                                       force_engineering=False, force_training=False)
     pipeline.data_cleaning()
     logger.info("Limpieza de datos finalipzada.")

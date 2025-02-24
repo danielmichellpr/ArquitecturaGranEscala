@@ -8,7 +8,8 @@ import pandas as pd
 
 if __name__ == "__main__":
     logger.info("Iniciando entrenamiento del modelo...")
-    pipeline = SalesPredictionPipeline(force_cleaning=False, force_engineering=False, force_training=True)
+    pipeline = SalesPredictionPipeline(force_cleaning=False, 
+                                       force_engineering=False, force_training=True)
     
     # Leer los datos con ingeniería de características
     engineered_data = pd.read_csv(pipeline.engineered_data_path)

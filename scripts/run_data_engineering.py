@@ -8,7 +8,8 @@ import pandas as pd
 
 if __name__ == "__main__":
     logger.info("Iniciando ingeniería de características...")
-    pipeline = SalesPredictionPipeline(force_cleaning=False, force_engineering=True, force_training=False)
+    pipeline = SalesPredictionPipeline(force_cleaning=False, 
+                                       force_engineering=True, force_training=False)
     
     # Leer los datos limpios generados en la fase anterior
     cleaned_data = pd.read_csv(pipeline.cleaned_data_path)
