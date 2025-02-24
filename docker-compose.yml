@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  data_cleaning:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.cleaning
+    volumes:
+      - ./data:/usr/src/app/data
+
+  feature_engineering:
+    depends_on:
+      - data_cleaning
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.engineering
+    volumes:
+      - ./data:/usr/src/app/data
+
+  modeling:
+    depends_on:
+      - feature_engineering
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.modeling
+    volumes:
+      - ./data:/usr/src/app/data
+      - ./models:/usr/src/app/models

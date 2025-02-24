@@ -53,3 +53,13 @@
 2025-02-24 10:09:01,090 - INFO - Modelo guardado en: ./models/xgboost_model.pkl
 2025-02-24 10:09:01,091 - INFO - Lista de variables utilizadas guardada en: ./models/model_features.txt
 2025-02-24 10:09:01,109 - INFO - Proceso Finalizado
+2025-02-24 11:38:22,438 - INFO - Iniciando limpieza de datos...
+2025-02-24 11:38:22,439 - INFO - Cargando datos limpios desde archivo ./data/output/data_cleaning.csv
+2025-02-24 11:38:25,929 - INFO - Limpieza de datos finalizada.
+2025-02-24 11:38:43,792 - INFO - Iniciando ingeniería de características...
+2025-02-24 11:38:46,999 - INFO - Cargando datos con ingeniería de características desde archivo ./data/output/data_engineering.csv
+2025-02-24 11:38:47,795 - INFO - Ingeniería de características finalizada.
+2025-02-24 11:39:16,018 - INFO - Iniciando entrenamiento del modelo...
+2025-02-24 11:39:16,802 - INFO - Cargando modelo previamente entrenado...
+2025-02-24 11:39:17,968 - INFO - Variables utilizadas en el modelo: ['item_price', 'unique_categories', 'category_sales_count', 'total_sales', 'sales_lag_1m', 'sales_lag_3m', 'sales_lag_6m', 'price_deviation']
+2025-02-24 11:39:17,972 - INFO - Entrenamiento del modelo finalizado.

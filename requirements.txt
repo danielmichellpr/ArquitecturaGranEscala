@@ -1,0 +1,14 @@
+deep_translator==1.11.4
+joblib==1.4.2
+matplotlib==3.10.0
+numpy==2.2.3
+pandas==2.2.3
+plotly==6.0.0
+pytest==8.3.4
+PyYAML==6.0.2
+scikit_learn==1.6.1
+scipy==1.15.2
+seaborn==0.13.2
+statsmodels==0.14.4
+streamlit==1.42.0
+xgboost==2.1.4

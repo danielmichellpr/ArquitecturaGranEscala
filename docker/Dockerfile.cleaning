@@ -1,0 +1,18 @@
+# Usa Python 3.11.2 como base
+FROM python:3.11.2
+
+# Establecer directorio de trabajo
+WORKDIR /usr/src/app
+
+# Copiar el archivo de dependencias
+COPY requirements.txt .
+
+# Instalar las dependencias usando pip
+RUN python -m pip install --no-cache-dir -r requirements.txt
+
+# Copiar el código fuente
+COPY . .
+
+# Definir el script que se ejecutará
+ENTRYPOINT ["python", "scripts/run_data_cleaning.py"]
+CMD []
