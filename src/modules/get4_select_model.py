@@ -44,7 +44,7 @@ class ModelTraining:
     Proporciona métodos para evaluar los modelos y seleccionar el mejor en base al RMSE.
     """
 
-    def __init__(self, X_train: pd.DataFrame, X_val: pd.DataFrame, y_train: pd.Series, y_val: pd.Series, model_type: str = 'random_forest'):
+    def __init__(self, X_train: pd.DataFrame, X_val: pd.DataFrame, y_train: pd.Series, y_val: pd.Series, model_type: str = 'xgboost'):
         """
         Inicializa la clase con los datos de entrenamiento y validación.
         
@@ -127,24 +127,12 @@ class ModelTraining:
             self.best_score = val_rmse
             self.best_model = self.model
 
-            # Guardar el modelo entrenado en la carpeta 'models/'
-            model_path = os.path.join("models", f"{self.model_type}_model.pkl")
-            os.makedirs("models", exist_ok=True)
-            joblib.dump(self.best_model, model_path)
-            logger.info("Modelo guardado en: %s", model_path)
-
             # Generar predicciones para todo el dataset
             full_predictions = self.best_model.predict(pd.concat([self.X_train, self.X_val], axis=0))
             full_data = pd.concat([self.X_train_completed, self.X_val_completed], axis=0)
             full_data["predicted_item_cnt_month"] = full_predictions
-
-            # Guardar las predicciones
-            predictions_path = os.path.join("models", "full_predictions.csv")
-            full_data.to_csv(predictions_path, index=False)
-            logger.info("Predicciones completas guardadas en: %s", predictions_path)
-
             logger.info("Mejor modelo: %s con RMSE en validación: %.4f", self.model_type, self.best_score)
-            return full_data, self.best_model, train_rmse, val_rmse
+            return full_data, self.best_model
 
         except Exception as e:
             logger.error("Error al entrenar el modelo: %s", str(e))

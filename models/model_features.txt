@@ -1,0 +1,8 @@
+item_price
+unique_categories
+category_sales_count
+total_sales
+sales_lag_1m
+sales_lag_3m
+sales_lag_6m
+price_deviation

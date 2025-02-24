@@ -1,6 +1,7 @@
 data:
   raw_path: "./data/raw/"
   results_path: "./data/results/"
+  models_path: "./models/"
 
 preprocessing:
   detect_outliers:
@@ -11,13 +12,35 @@ preprocessing:
     upper_percentile: 0.99
 
 model:
-  type: "random_forest"
+  types:  # Lista de modelos disponibles
+    - "random_forest"
+    - "xgboost"
+    - "arima"
+    - "exponential_smoothing"
+  selected: "xgboost"  # Modelo seleccionado para entrenamiento
   hyperparameters:
-    n_estimators: 100
-    random_state: 42
-    max_depth: 3
-    learning_rate: 0.1
+    random_forest:
+      n_estimators: 100
+      random_state: 42
+      max_depth: 3
+    xgboost:
+      n_estimators: 100
+      random_state: 42
+      max_depth: 3
+      learning_rate: 0.1
+    arima:
+      order: [5,1,0]  # Parámetros p,d,q
+    exponential_smoothing:
+      seasonal: "add"
+      seasonal_periods: 12
 
 output:
-  submission_filename: "submission.csv"
-  full_predictions_filename: "full_predictions.csv"
+  cleaned_data_filename: "./data/output/data_cleaning.csv"
+  engineered_data_filename: "./data/output/data_engineering.csv"
+  predictions_data_filename: "./data/output/data_predictions.csv"
+  model_features_filename: "./models/model_features.txt"
+
+flags:
+  force_cleaning: false
+  force_engineering: false
+  force_training: false
