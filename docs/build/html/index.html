@@ -190,6 +190,68 @@ El código está diseñado de manera modular y permite la ejecución controlada 
 <p><code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">tests/</span></code></p>
 <p>Si solo deseas ejecutar un test en particular:</p>
 <p><code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">tests/test_model_training.py</span></code></p>
+</section>
+<section id="configuracion-y-uso-de-docker">
+<h2>🐳 Configuración y Uso de Docker<a class="headerlink" href="#configuracion-y-uso-de-docker" title="Link to this heading"></a></h2>
+<p>Este proyecto usa Docker para contenerizar el pipeline de predicción de ventas, permitiendo automatización, escalabilidad y reproducibilidad.</p>
+<section id="construccion-de-contenedores">
+<h3>📦 1️⃣ Construcción de Contenedores<a class="headerlink" href="#construccion-de-contenedores" title="Link to this heading"></a></h3>
+<p>Antes de ejecutar, es necesario construir las imágenes de Docker para cada fase del pipeline:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">data_cleaning</span> <span class="o">-</span><span class="n">f</span> <span class="n">docker</span><span class="o">/</span><span class="n">Dockerfile</span><span class="o">.</span><span class="n">cleaning</span> <span class="o">.</span>
+<span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">feature_engineering</span> <span class="o">-</span><span class="n">f</span> <span class="n">docker</span><span class="o">/</span><span class="n">Dockerfile</span><span class="o">.</span><span class="n">engineering</span> <span class="o">.</span>
+<span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">model_training</span> <span class="o">-</span><span class="n">f</span> <span class="n">docker</span><span class="o">/</span><span class="n">Dockerfile</span><span class="o">.</span><span class="n">training</span> <span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="ejecucion-manual-de-los-contenedores">
+<h3>🚀 2️⃣ Ejecución Manual de los Contenedores<a class="headerlink" href="#ejecucion-manual-de-los-contenedores" title="Link to this heading"></a></h3>
+<p>Si deseas ejecutar cada fase por separado:</p>
+<p><strong>📌 Ejecutar Limpieza de Datos</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run --rm -v $(pwd)/data:/usr/src/app/data data_cleaning
+</pre></div>
+</div>
+<p><strong>📌 Ejecutar Ingeniería de Características</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run --rm -v $(pwd)/data:/usr/src/app/data feature_engineering
+</pre></div>
+</div>
+<p><strong>📌 Ejecutar Entrenamiento del Modelo</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run --rm -v $(pwd)/data:/usr/src/app/data -v $(pwd)/models:/usr/src/app/models model_training
+</pre></div>
+</div>
+</section>
+<section id="ejecucion-automatica-con-docker-compose">
+<h3>🔄 3️⃣ Ejecución Automática con docker-compose<a class="headerlink" href="#ejecucion-automatica-con-docker-compose" title="Link to this heading"></a></h3>
+<p>Para ejecutar todo el pipeline de forma automática en orden, usa:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">--</span><span class="n">build</span>
+</pre></div>
+</div>
+<p>📌 Esto hará que:</p>
+<ul class="simple">
+<li><p>Se ejecute data_cleaning primero.</p></li>
+<li><p>Al terminar, se ejecute feature_engineering.</p></li>
+<li><p>Finalmente, se ejecute model_training, guardando el modelo en <code class="docutils literal notranslate"><span class="pre">models/</span></code>.</p></li>
+</ul>
+</section>
+<section id="para-detener-los-contenedores">
+<h3>Para Detener los Contenedores<a class="headerlink" href="#para-detener-los-contenedores" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Para</span> <span class="n">Detener</span> <span class="n">los</span> <span class="n">Contenedores</span>
+</pre></div>
+</div>
+</section>
+<section id="verificacion-de-resultados">
+<h3>📊 Verificación de Resultados<a class="headerlink" href="#verificacion-de-resultados" title="Link to this heading"></a></h3>
+<p>Después de ejecutar el pipeline, revisa los archivos generados:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">-</span><span class="n">lh</span> <span class="n">data</span><span class="o">/</span><span class="n">output</span><span class="o">/</span>
+<span class="n">ls</span> <span class="o">-</span><span class="n">lh</span> <span class="n">models</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>📌 Deberías ver:</p>
+<ul class="simple">
+<li><p>data_cleaning.csv</p></li>
+<li><p>data_engineering.csv</p></li>
+<li><p>data_predictions.csv</p></li>
+<li><p>xgboost_model.pkl</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contenido:</span></p>
 <ul>
@@ -208,6 +270,7 @@ El código está diseñado de manera modular y permite la ejecución controlada 
 </li>
 </ul>
 </div>
+</section>
 </section>
 </section>
 

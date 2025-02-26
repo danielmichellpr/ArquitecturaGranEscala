@@ -130,6 +130,72 @@ Si solo deseas ejecutar un test en particular:
 
 `pytest tests/test_model_training.py`
 
+## 🐳 Configuración y Uso de Docker
+
+Este proyecto usa Docker para contenerizar el pipeline de predicción de ventas, permitiendo automatización, escalabilidad y reproducibilidad.
+
+### 📦 1️⃣ Construcción de Contenedores
+Antes de ejecutar, es necesario construir las imágenes de Docker para cada fase del pipeline:
+
+```
+docker build -t data_cleaning -f docker/Dockerfile.cleaning .
+docker build -t feature_engineering -f docker/Dockerfile.engineering .
+docker build -t model_training -f docker/Dockerfile.training .
+```
+
+### 🚀 2️⃣ Ejecución Manual de los Contenedores
+Si deseas ejecutar cada fase por separado:
+
+**📌 Ejecutar Limpieza de Datos**
+```
+docker run --rm -v $(pwd)/data:/usr/src/app/data data_cleaning
+```
+**📌 Ejecutar Ingeniería de Características**
+```
+docker run --rm -v $(pwd)/data:/usr/src/app/data feature_engineering
+```
+**📌 Ejecutar Entrenamiento del Modelo**
+```
+docker run --rm -v $(pwd)/data:/usr/src/app/data -v $(pwd)/models:/usr/src/app/models model_training
+```
+
+
+### 🔄 3️⃣ Ejecución Automática con docker-compose
+Para ejecutar todo el pipeline de forma automática en orden, usa:
+
+```
+docker-compose up --build
+```
+
+📌 Esto hará que:
+
+  - Se ejecute data_cleaning primero.
+  - Al terminar, se ejecute feature_engineering.
+  - Finalmente, se ejecute model_training, guardando el modelo en `models/`.
+
+### Para Detener los Contenedores
+
+```
+Para Detener los Contenedores
+```
+
+### 📊 Verificación de Resultados
+
+Después de ejecutar el pipeline, revisa los archivos generados:
+
+```
+ls -lh data/output/
+ls -lh models/
+```
+
+📌 Deberías ver:
+
+  - data_cleaning.csv
+  - data_engineering.csv
+  - data_predictions.csv
+  - xgboost_model.pkl
+
+
 ```{toctree}
 :maxdepth: 2
 :caption: Contenido:
