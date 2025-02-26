@@ -2,15 +2,15 @@
 Módulo para el entrenamiento y evaluación de modelos de predicción de series temporales.
 
 Este módulo proporciona la clase `ModelTraining`, que permite:
-- Entrenar y evaluar modelos de series temporales.
-- Seleccionar el mejor modelo basado en el RMSE.
-- Guardar el modelo entrenado en la carpeta `models/`.
+    - Entrenar y evaluar modelos de series temporales.
+    - Seleccionar el mejor modelo basado en el RMSE.
+    - Guardar el modelo entrenado en la carpeta `models/`.
 
 Soporta los siguientes tipos de modelos:
-- **Exponential Smoothing** (Suavizamiento exponencial para datos de series temporales).
-- **ARIMA** (Modelo autorregresivo integrado de media móvil).
-- **Random Forest** (Modelo basado en árboles de decisión).
-- **XGBoost** (Regresión basada en gradiente boosting).
+    - **Exponential Smoothing** (Suavizamiento exponencial para datos de series temporales).
+    - **ARIMA** (Modelo autorregresivo integrado de media móvil).
+    - **Random Forest** (Modelo basado en árboles de decisión).
+    - **XGBoost** (Regresión basada en gradiente boosting).
 
 Clases:
     - ModelTraining: Maneja el entrenamiento, evaluación y almacenamiento de modelos de predicción.
@@ -36,10 +36,10 @@ class ModelTraining:
     Clase para el entrenamiento y evaluación de modelos de predicción de series temporales.
     
     Esta clase permite entrenar modelos de tipo:
-    - Exponential Smoothing
-    - ARIMA
-    - Random Forest
-    - XGBoost
+        - Exponential Smoothing
+        - ARIMA
+        - Random Forest
+        - XGBoost
     
     Proporciona métodos para evaluar los modelos y seleccionar el mejor en base al RMSE.
     """
@@ -49,14 +49,14 @@ class ModelTraining:
         Inicializa la clase con los datos de entrenamiento y validación.
         
         Parámetros:
-        X_train (pd.DataFrame): Variables predictoras de entrenamiento.
-        X_val (pd.DataFrame): Variables predictoras de validación.
-        y_train (pd.Series): Variable objetivo de entrenamiento.
-        y_val (pd.Series): Variable objetivo de validación.
-        model_type (str): Tipo de modelo a entrenar ('exponential_smoothing', 'arima', 'random_forest', 'xgboost').
+            - X_train (pd.DataFrame): Variables predictoras de entrenamiento.
+            - X_val (pd.DataFrame): Variables predictoras de validación.
+            - y_train (pd.Series): Variable objetivo de entrenamiento.
+            - y_val (pd.Series): Variable objetivo de validación.
+            - model_type (str): Tipo de modelo a entrenar ('exponential_smoothing', 'arima', 'random_forest', 'xgboost').
         
         Excepciones:
-        ValueError: Si los DataFrames de entrada están vacíos o el tipo de modelo no es válido.
+            - ValueError: Si los DataFrames de entrada están vacíos o el tipo de modelo no es válido.
         """
         if X_train.empty or X_val.empty or y_train.empty or y_val.empty:
             logger.error("Los datos de entrenamiento o validación están vacíos.")
@@ -85,10 +85,10 @@ class ModelTraining:
         Entrena y evalúa el modelo seleccionado y guarda el mejor modelo en la carpeta 'models/'.
         
         Retorna:
-        Tuple: Contiene el mejor modelo entrenado, RMSE de entrenamiento y RMSE de validación.
+            - Tuple: Contiene el mejor modelo entrenado, RMSE de entrenamiento y RMSE de validación.
         
         Excepciones:
-        ValueError: Si ocurre un error durante el entrenamiento del modelo.
+            - ValueError: Si ocurre un error durante el entrenamiento del modelo.
         """
         logger.info("Entrenando modelo: %s", self.model_type)
         

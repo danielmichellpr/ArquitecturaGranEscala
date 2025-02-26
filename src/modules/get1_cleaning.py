@@ -28,10 +28,10 @@ class SalesCleaner:
         Inicializa la clase con un DataFrame y valida su estructura.
         
         Parámetros:
-        df (pd.DataFrame): DataFrame original de ventas.
+            - df (pd.DataFrame): DataFrame original de ventas.
         
         Excepciones:
-        ValueError: Si el argumento no es un DataFrame o está vacío.
+            - ValueError: Si el argumento no es un DataFrame o está vacío.
         """
         if not isinstance(df, pd.DataFrame):
             logger.error("El argumento df no es un DataFrame válido.")
@@ -48,8 +48,8 @@ class SalesCleaner:
         Convierte la columna 'date' de texto a formato datetime.
         
         Excepciones:
-        KeyError: Si la columna 'date' no está en el DataFrame.
-        ValueError: Si la columna 'date' contiene solo valores nulos o no puede convertirse.
+            - KeyError: Si la columna 'date' no está en el DataFrame.
+            - ValueError: Si la columna 'date' contiene solo valores nulos o no puede convertirse.
         """
         if "date" not in self.df.columns:
             logger.error("La columna 'date' no existe en el DataFrame.")
@@ -74,8 +74,8 @@ class SalesCleaner:
         Crea una nueva columna 'month_year' en formato 'YYYY-MM' para facilitar análisis temporales.
         
         Excepciones:
-        KeyError: Si la columna 'date' no está en el DataFrame.
-        ValueError: Si la columna 'date' contiene solo valores nulos.
+            - KeyError: Si la columna 'date' no está en el DataFrame.
+            - ValueError: Si la columna 'date' contiene solo valores nulos.
         """
         if "date" not in self.df.columns:
             logger.error("La columna 'date' no existe en el DataFrame.")
@@ -92,7 +92,7 @@ class SalesCleaner:
         Ejecuta todas las transformaciones en cadena y retorna el DataFrame procesado.
         
         Retorna:
-        pd.DataFrame: DataFrame transformado con columnas 'date' convertida y 'month_year' generada.
+            - pd.DataFrame: DataFrame transformado con columnas 'date' convertida y 'month_year' generada.
         """
         logger.info("Ejecutando transformaciones de datos.")
         result = self.convert_date().add_month_year().df

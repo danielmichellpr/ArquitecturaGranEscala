@@ -30,16 +30,16 @@ def plot_distribution(df: pd.DataFrame, column: str, title: str = None, clip_min
     Grafica la distribución de una columna junto con su boxplot.
     
     Parámetros:
-    df (pd.DataFrame): DataFrame de datos.
-    column (str): Nombre de la columna a graficar.
-    title (str): Título opcional del gráfico.
-    clip_min (float): Límite inferior opcional para recortar valores extremos.
-    clip_max (float): Límite superior opcional para recortar valores extremos.
-    figsize (tuple): Tamaño del gráfico.
-    color (str): Color del histograma.
+        - df (pd.DataFrame): DataFrame de datos.
+        - column (str): Nombre de la columna a graficar.
+        - title (str): Título opcional del gráfico.
+        - clip_min (float): Límite inferior opcional para recortar valores extremos.
+        - clip_max (float): Límite superior opcional para recortar valores extremos.
+        - figsize (tuple): Tamaño del gráfico.
+        - color (str): Color del histograma.
     
     Excepciones:
-    KeyError: Si la columna no existe en el DataFrame.
+        - KeyError: Si la columna no existe en el DataFrame.
     """
     if column not in df.columns:
         logger.error("La columna '%s' no existe en el DataFrame.", column)
@@ -87,20 +87,20 @@ def detect_outliers(df: pd.DataFrame, column: str, iqr_factor: float = 1.5, z_th
     Retorna un DataFrame resumen comparativo y un diccionario con los DataFrames filtrados.
 
     Parámetros:
-    df (pd.DataFrame): DataFrame con los datos.
-    column (str): Nombre de la columna a analizar.
-    iqr_factor (float): Factor para determinar el umbral de outliers con IQR (default = 1.5).
-    z_threshold (float): Umbral para considerar valores atípicos con Z-Score (default = 3).
-    lower_percentile (float): Percentil inferior para detección de outliers (default = 1%).
-    upper_percentile (float): Percentil superior para detección de outliers (default = 99%).
+        - df (pd.DataFrame): DataFrame con los datos.
+        - column (str): Nombre de la columna a analizar.
+        - iqr_factor (float): Factor para determinar el umbral de outliers con IQR (default = 1.5).
+        - z_threshold (float): Umbral para considerar valores atípicos con Z-Score (default = 3).
+        - lower_percentile (float): Percentil inferior para detección de outliers (default = 1%).
+        - upper_percentile (float): Percentil superior para detección de outliers (default = 99%).
 
     Retorna:
-    - summary_df (pd.DataFrame): Resumen de los métodos de detección de outliers.
-    - filtered_data (dict): Diccionario con los DataFrames sin outliers según cada método.
+        - summary_df (pd.DataFrame): Resumen de los métodos de detección de outliers.
+        - filtered_data (dict): Diccionario con los DataFrames sin outliers según cada método.
 
     Excepciones:
-    KeyError: Si la columna no existe en el DataFrame.
-    ValueError: Si la columna no contiene datos numéricos.
+        - KeyError: Si la columna no existe en el DataFrame.
+        - ValueError: Si la columna no contiene datos numéricos.
     """
     if column not in df.columns:
         logger.error("La columna '%s' no existe en el DataFrame.", column)
@@ -157,15 +157,15 @@ def top_sellers(df: pd.DataFrame, group_by: str, figsize: tuple = (12, 5), top_n
     Identifica los elementos más vendidos en un DataFrame.
     
     Parámetros:
-    df (pd.DataFrame): DataFrame con datos de ventas.
-    group_by (str): Columna de agrupación ('item_id', 'shop_id', etc.).
-    top_n (int): Número de elementos a mostrar.
+        - df (pd.DataFrame): DataFrame con datos de ventas.
+        - group_by (str): Columna de agrupación ('item_id', 'shop_id', etc.).
+        - top_n (int): Número de elementos a mostrar.
     
     Retorna:
-    pd.DataFrame: DataFrame con los elementos más vendidos.
+        - pd.DataFrame: DataFrame con los elementos más vendidos.
     
     Excepciones:
-    KeyError: Si la columna de agrupación no existe en el DataFrame.
+        - KeyError: Si la columna de agrupación no existe en el DataFrame.
     """
     if group_by not in df.columns:
         logger.error("La columna '%s' no existe en el DataFrame.", group_by)

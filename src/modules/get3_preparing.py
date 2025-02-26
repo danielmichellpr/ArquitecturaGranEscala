@@ -14,8 +14,7 @@ Clases:
     - DataPreparation: Contiene métodos para la preparación estructurada de datos antes de modelado.
 
 Excepciones:
-    - ValueError: Se lanza cuando los datos de entrada no son válidos, están vacíos o 
-                  contienen valores inesperados.
+    - ValueError: Se lanza cuando los datos de entrada no son válidos, están vacíos o contienen valores inesperados.
     - KeyError: Se lanza cuando una columna requerida no está presente en el DataFrame.
 """
 import sys
@@ -37,11 +36,11 @@ class DataPreparation:
         Inicializa la clase con un DataFrame y el target deseado.
         
         Parámetros:
-        df (pd.DataFrame): DataFrame con los datos preparados por Feature Engineering.
-        target (str): Variable objetivo ('item_cnt_month' para regresión o clasificación).
+            - df (pd.DataFrame): DataFrame con los datos preparados por Feature Engineering.
+            - target (str): Variable objetivo ('item_cnt_month' para regresión o clasificación).
         
         Excepciones:
-        ValueError: Si df no es un DataFrame o está vacío.
+            - ValueError: Si df no es un DataFrame o está vacío.
         """
         if not isinstance(df, pd.DataFrame):
             logger.error("El argumento df no es un DataFrame válido.")
@@ -61,14 +60,14 @@ class DataPreparation:
         Divide los datos en conjuntos de entrenamiento y validación manteniendo la cronología de las observaciones.
         
         Parámetros:
-        test_size (float): Proporción del conjunto de validación. Por defecto, 0.2 (20%).
+            - test_size (float): Proporción del conjunto de validación. Por defecto, 0.2 (20%).
         
         Retorna:
-        Tuple[pd.DataFrame, pd.DataFrame]: DataFrames de entrenamiento y validación.
+            - Tuple[pd.DataFrame, pd.DataFrame]: DataFrames de entrenamiento y validación.
         
         Excepciones:
-        KeyError: Si la columna 'date_block_num' no existe en el DataFrame.
-        ValueError: Si la proporción de test_size no es válida.
+            - KeyError: Si la columna 'date_block_num' no existe en el DataFrame.
+            - ValueError: Si la proporción de test_size no es válida.
         """
         if "date_block_num" not in self.df.columns:
             logger.error("La columna 'date_block_num' no existe en el DataFrame.")
@@ -93,13 +92,13 @@ class DataPreparation:
         Maneja los valores faltantes en el DataFrame rellenando con ceros en variables de retraso y la mediana en otras.
         
         Parámetros:
-        df (pd.DataFrame): DataFrame con posibles valores faltantes.
+            - df (pd.DataFrame): DataFrame con posibles valores faltantes.
         
         Retorna:
-        pd.DataFrame: DataFrame con valores faltantes tratados.
+            - pd.DataFrame: DataFrame con valores faltantes tratados.
         
         Excepciones:
-        ValueError: Si el DataFrame está vacío.
+            - ValueError: Si el DataFrame está vacío.
         """
         if df.empty:
             logger.warning("El DataFrame está vacío. No se puede manejar valores faltantes.")
@@ -143,10 +142,10 @@ class DataPreparation:
         Reemplaza valores infinitos por NaN y posteriormente los maneja con la mediana de cada columna.
         
         Parámetros:
-        df (pd.DataFrame): DataFrame con posibles valores infinitos.
+            - df (pd.DataFrame): DataFrame con posibles valores infinitos.
         
         Retorna:
-        pd.DataFrame: DataFrame con valores infinitos corregidos.
+            -pd.DataFrame: DataFrame con valores infinitos corregidos.
         """
         if df.empty:
             logger.warning("El DataFrame está vacío. No se pueden manejar valores infinitos.")
@@ -165,14 +164,14 @@ class DataPreparation:
         Elimina variables altamente correlacionadas por encima de un umbral dado.
         
         Parámetros:
-        df (pd.DataFrame): DataFrame con posibles correlaciones altas.
-        threshold (float): Umbral de correlación para eliminar variables (por defecto, 0.80).
+            - df (pd.DataFrame): DataFrame con posibles correlaciones altas.
+            - threshold (float): Umbral de correlación para eliminar variables (por defecto, 0.80).
         
         Retorna:
-        pd.DataFrame: DataFrame sin variables altamente correlacionadas.
+            - pd.DataFrame: DataFrame sin variables altamente correlacionadas.
         
         Excepciones:
-        ValueError: Si el DataFrame está vacío o si el umbral no es válido.
+            - ValueError: Si el DataFrame está vacío o si el umbral no es válido.
         """
         if df.empty:
             logger.warning("El DataFrame está vacío. No se pueden eliminar variables correlacionadas.")
@@ -196,14 +195,14 @@ class DataPreparation:
         Escala características numéricas usando StandardScaler.
         
         Parámetros:
-        df (pd.DataFrame): DataFrame con características a escalar.
-        fit (bool): Si True, ajusta el scaler a los datos; si False, solo transforma.
+            - df (pd.DataFrame): DataFrame con características a escalar.
+            - fit (bool): Si True, ajusta el scaler a los datos; si False, solo transforma.
         
         Retorna:
-        pd.DataFrame: DataFrame con características escaladas.
+            - pd.DataFrame: DataFrame con características escaladas.
         
         Excepciones:
-        ValueError: Si el DataFrame está vacío.
+            - ValueError: Si el DataFrame está vacío.
         """
         if df.empty:
             logger.warning("El DataFrame está vacío. No se pueden escalar características.")
@@ -224,7 +223,7 @@ class DataPreparation:
         Aplica todas las transformaciones en el conjunto de entrenamiento y validación.
         
         Retorna:
-        None: Modifica los DataFrames internos.
+            - None: Modifica los DataFrames internos.
         """
         logger.info("Aplicando pipeline de transformación de datos...")
         self.train_df = self.handle_missing_values(self.train_df)
@@ -246,8 +245,8 @@ class DataPreparation:
         Ejecuta el proceso completo de preparación de datos.
         
         Retorna:
-        Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
-        DataFrames de entrenamiento y validación junto con sus etiquetas.
+            - Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+            - DataFrames de entrenamiento y validación junto con sus etiquetas.
         """
         logger.info("Iniciando proceso de preparación de datos...")
         self.split_data()

@@ -27,10 +27,10 @@ class DataProcessor:
         para cada variable en un DataFrame.
         
         Parámetros:
-        df (pd.DataFrame): DataFrame a analizar.
+            - df (pd.DataFrame): DataFrame a analizar.
         
         Retorna:
-        pd.DataFrame: DataFrame con columnas ["variable", "num_nulos", "completitud"]
+            - pd.DataFrame: DataFrame con columnas ["variable", "num_nulos", "completitud"]
         """
         # Verificar que el input sea un DataFrame válido
         if not isinstance(df, pd.DataFrame):
@@ -59,13 +59,13 @@ class DataProcessor:
         Traduce los valores de una columna en un DataFrame utilizando Google Translator.
 
         Parámetros:
-        df (pd.DataFrame): DataFrame a procesar.
-        column_name (str): Nombre de la columna a traducir.
-        source_lang (str): Idioma de origen (por defecto, ruso 'ru').
-        target_lang (str): Idioma destino (por defecto, español 'es').
+            - df (pd.DataFrame): DataFrame a procesar.
+            - column_name (str): Nombre de la columna a traducir.
+            - source_lang (str): Idioma de origen (por defecto, ruso 'ru').
+            - target_lang (str): Idioma destino (por defecto, español 'es').
 
         Retorna:
-        pd.DataFrame: DataFrame con una nueva columna traducida.
+            - pd.DataFrame: DataFrame con una nueva columna traducida.
         """
         # Verificar que el input sea un DataFrame válido
         if not isinstance(df, pd.DataFrame):

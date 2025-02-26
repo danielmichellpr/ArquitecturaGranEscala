@@ -30,11 +30,11 @@ class FeatureEngineering:
         Inicializa la clase con un DataFrame y la variable objetivo.
         
         Parámetros:
-        df (pd.DataFrame): DataFrame con los datos de ventas.
-        target (str): Variable objetivo ('item_cnt_month' para regresión o clasificación).
+            - df (pd.DataFrame): DataFrame con los datos de ventas.
+            - target (str): Variable objetivo ('item_cnt_month' para regresión o clasificación).
         
         Excepciones:
-        ValueError: Si df no es un DataFrame o está vacío.
+            -ValueError: Si df no es un DataFrame o está vacío.
         """
         if not isinstance(df, pd.DataFrame):
             logger.error("El argumento df no es un DataFrame válido.")
@@ -52,8 +52,8 @@ class FeatureEngineering:
         Agrega variables temporales derivadas de la columna 'date'.
         
         Excepciones:
-        KeyError: Si la columna 'date' no está presente en el DataFrame.
-        ValueError: Si la conversión de fecha falla debido a un formato incorrecto.
+            - KeyError: Si la columna 'date' no está presente en el DataFrame.
+            - ValueError: Si la conversión de fecha falla debido a un formato incorrecto.
         """
         if "date" not in self.df.columns:
             logger.error("La columna 'date' no existe en el DataFrame.")
@@ -80,10 +80,10 @@ class FeatureEngineering:
         Agrega las ventas a nivel mensual agrupando por tienda y producto.
         
         Retorna:
-        pd.DataFrame: DataFrame con las ventas agregadas a nivel de mes.
+            - pd.DataFrame: DataFrame con las ventas agregadas a nivel de mes.
         
         Excepciones:
-        KeyError: Si la columna 'item_cnt_day' no está en el DataFrame.
+            - KeyError: Si la columna 'item_cnt_day' no está en el DataFrame.
         """
         if "item_cnt_day" not in self.df.columns:
             logger.error("La columna 'item_cnt_day' no existe en el DataFrame.")
@@ -104,10 +104,10 @@ class FeatureEngineering:
         Agrega los precios promedio a nivel mensual agrupando por tienda y producto.
         
         Retorna:
-        pd.DataFrame: DataFrame con los precios agregados a nivel de mes.
+            - pd.DataFrame: DataFrame con los precios agregados a nivel de mes.
         
         Excepciones:
-        KeyError: Si la columna 'item_price' no está en el DataFrame.
+            - KeyError: Si la columna 'item_price' no está en el DataFrame.
         """
         if "item_price" not in self.df.columns:
             logger.error("La columna 'item_price' no existe en el DataFrame.")
@@ -126,10 +126,10 @@ class FeatureEngineering:
         Agrega información de categorías a nivel mensual con múltiples métricas, incluyendo la moda.
         
         Retorna:
-        pd.DataFrame: DataFrame con información agregada de categorías.
+            - pd.DataFrame: DataFrame con información agregada de categorías.
         
         Excepciones:
-        KeyError: Si la columna 'item_category_id' no está en el DataFrame.
+            - KeyError: Si la columna 'item_category_id' no está en el DataFrame.
         """
         if "item_category_id" not in self.df.columns:
             logger.error("La columna 'item_category_id' no existe en el DataFrame.")
@@ -184,10 +184,10 @@ class FeatureEngineering:
         Une todas las características agregadas en un único DataFrame.
 
         Retorna:
-        pd.DataFrame: DataFrame con todas las variables agregadas combinadas.
+            - pd.DataFrame: DataFrame con todas las variables agregadas combinadas.
 
         Excepciones:
-        ValueError: Si las funciones de agregación no se han ejecutado previamente.
+            - ValueError: Si las funciones de agregación no se han ejecutado previamente.
         """
         logger.info("Fusionando características agregadas...")
 
@@ -216,10 +216,10 @@ class FeatureEngineering:
         Agrega variables de ventas acumuladas y tendencia a nivel mensual.
         
         Retorna:
-        pd.DataFrame: DataFrame con las características de ventas agregadas.
+            - pd.DataFrame: DataFrame con las características de ventas agregadas.
         
         Excepciones:
-        KeyError: Si la variable objetivo no está en el DataFrame.
+            - KeyError: Si la variable objetivo no está en el DataFrame.
         """
         if self.target not in self.df.columns:
             logger.error(f"La variable objetivo '{self.target}' no existe en el DataFrame.")
@@ -249,10 +249,10 @@ class FeatureEngineering:
         Agrega variables de precios avanzadas sin perder información de categorías.
         
         Retorna:
-        pd.DataFrame: DataFrame con características avanzadas de precios.
+            - pd.DataFrame: DataFrame con características avanzadas de precios.
         
         Excepciones:
-        KeyError: Si la columna 'item_price' no está en el DataFrame.
+            - KeyError: Si la columna 'item_price' no está en el DataFrame.
         """
         if "item_price" not in self.df.columns:
             logger.error("La columna 'item_price' no existe en el DataFrame.")
@@ -300,7 +300,7 @@ class FeatureEngineering:
         Ejecuta todas las funciones de generación de características en orden.
         
         Retorna:
-        pd.DataFrame: DataFrame con todas las características generadas.
+            - pd.DataFrame: DataFrame con todas las características generadas.
         """
         logger.info("Ejecutando proceso completo de ingeniería de características...")
         self.add_time_features()

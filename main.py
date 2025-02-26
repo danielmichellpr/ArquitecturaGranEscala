@@ -7,12 +7,12 @@ y reutilizable. Se basa en un enfoque modular que permite cargar y reutilizar da
 o ejecutar nuevamente los pasos si el usuario lo requiere.
 
 Características:
-- **Carga dinámica de datos**: Los datos se procesan solo si no existen archivos previos o si el usuario lo solicita.
-- **Parámetros configurables**: Se usa un archivo `config.yaml` para definir rutas, modelos, hiperparámetros y flags de ejecución.
-- **Limpieza de datos**: Transformación de datos brutos (`SalesCleaner`).
-- **Ingeniería de características**: Generación de variables (`FeatureEngineering`).
-- **Preparación de datos**: Eliminación de valores atípicos y escalado (`DataPreparation`).
-- **Entrenamiento de modelos**: Compatibilidad con modelos `Random Forest`, `XGBoost`, `ARIMA` y `Exponential Smoothing`.
+    - **Carga dinámica de datos**: Los datos se procesan solo si no existen archivos previos o si el usuario lo solicita.
+    - **Parámetros configurables**: Se usa un archivo `config.yaml` para definir rutas, modelos, hiperparámetros y flags de ejecución.
+    - **Limpieza de datos**: Transformación de datos brutos (`SalesCleaner`).
+    - **Ingeniería de características**: Generación de variables (`FeatureEngineering`).
+    - **Preparación de datos**: Eliminación de valores atípicos y escalado (`DataPreparation`).
+    - **Entrenamiento de modelos**: Compatibilidad con modelos `Random Forest`, `XGBoost`, `ARIMA` y `Exponential Smoothing`.
 
 Clases:
     - SalesPredictionPipeline: Ejecuta el pipeline de predicción de ventas.
